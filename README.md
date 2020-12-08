@@ -24,12 +24,9 @@ $ python longrangearena_imdb.py
 ```
 
 ```
-$ python longrangearena_matching.py
+$ python pathfinder/longrangearena_pathfinder.py
 ```
 
-```
-$ python pathfinder/longrangearena_matching.py
-```
 ```
 $ python lra_listops/longrangearena_listops.py
 ```
