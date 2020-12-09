@@ -9,7 +9,8 @@
 Params          | 18.3M     | 3.6M      | 1.145k    |     	132k    | 310k      |        |
 ACC             | 39.23     | 82        | 75.5      |        47     | 67.50     | 62.25  |
 
-Those are the results one is expected to find using the LONG RANGE ARENA suite of benchmarks (+reference the paper).
+Those are the results one is expected to find using IGLOO on the [Long Range Arena](https://github.com/google-research/long-range-arena) suite of benchmarks.
+
 ```
 @inproceedings{
 tay2020long,
@@ -43,6 +44,10 @@ $ python longrangearena_cifar10.py
 
 ```
 $ python longrangearena_imdb.py
+```
+
+```
+$ python longrangearena_matching.py
 ```
 
 ```
