@@ -2,6 +2,14 @@
 [![Python](https://img.shields.io/pypi/pyversions/tensorflow.svg?style=plastic)](https://badge.fury.io/py/tensorflow)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
+## Result
+
+|               | ListOps   | Text-IMDB | Retrieval | Image-cifar10 | Path      | Avg    |
+--------------- | --------- | --------- | --------- | ------------- | --------- | ------ |
+Params          | 18.3M     | 3.6M      | 1.145k    |     	132k    | 310k      |        |
+ACC             | 39.23     | 82        | 75.5      |        47     | 67.50     | 62.25  |
+
+
 ## Prerequisites
     Tensorflow 2.0.0
     Numpy
