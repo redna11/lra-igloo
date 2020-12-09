@@ -2,7 +2,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/tensorflow.svg?style=plastic)](https://badge.fury.io/py/tensorflow)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
-## Result
+## Expected results
 
 |               | ListOps   | Text-IMDB | Retrieval | Image-cifar10 | Path      | Avg    |
 --------------- | --------- | --------- | --------- | ------------- | --------- | ------ |
@@ -12,6 +12,7 @@ ACC             | 39.23     | 82        | 75.5      |        47     | 67.50     
 
 ## Prerequisites
     Tensorflow 2.0.0
+    Tensorflow-datasets 2.0.0
     Numpy
 
 ## Building
