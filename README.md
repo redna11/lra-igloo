@@ -9,7 +9,7 @@
 Params          | 18.3M     | 3.6M      | 1.145k    |     	132k    | 310k      |        |
 ACC             | 39.23     | 82        | 75.5      |        47     | 67.50     | 62.25  |
 
-Those are the results one is expected to find using the LONG RANGE ARENA suite of benchmarks (+reference the paper)
+Those are the results one is expected to find using the LONG RANGE ARENA suite of benchmarks (+reference the paper).
 ```
 @inproceedings{
 tay2020long,
