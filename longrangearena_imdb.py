@@ -49,7 +49,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
     'imdb_reviews/bytes',
     split=['train', 'test'],
     as_supervised=True,
-    with_info=True,
+    with_info=True
 )
 
 print(ds_info)

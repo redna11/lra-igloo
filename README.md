@@ -35,7 +35,6 @@ To install the prerequisites.
 $ pip install -r requirements.txt
 ```
 
-
 ## Running
 
 ```

@@ -329,6 +329,7 @@ def gen_filters_igloo_newstyle1Donly(patch_size, nb_patches, vector_size, num_ch
                     continue
 
             if step % 10 == 0:
+                print("step...",step)
 
             COLLECTA = []
 
