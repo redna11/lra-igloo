@@ -128,3 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .vscode/settings.json
+data/new_aan_pairs.eval.tsv
+data/new_aan_pairs.test.tsv
+data/new_aan_pairs.train.tsv
+lra_listops/listops/basic_test.tsv
+lra_listops/listops/basic_train.tsv
+lra_listops/listops/basic_val.tsv
