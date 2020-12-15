@@ -23,6 +23,8 @@
 import functools
 import itertools
 import os
+import sys
+
 import time
 from absl import app
 from absl import flags
@@ -37,9 +39,8 @@ FLAGS = flags.FLAGS
 from tensorflow.keras.layers import Dense, Flatten, Conv2D,Embedding,LSTM
 from tensorflow.keras import Model
 
-
+sys.path.append(os.path.normpath(os.path.dirname(os.getcwd())))
 from mandarin_common_tf2 import *
-
 
 print("---------------------------------------------------------")
 print("USE WITH TF 2.0")
@@ -48,11 +49,11 @@ print("---------------------------------------------------------")
 
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 # The GPU id to use, usually either "0" or "1"
-os.environ["CUDA_VISIBLE_DEVICES"]="1"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 
 
-output_dir_train = 'lra_listops/listops/'
+output_dir_train = 'listops/'
 
 
 bs=36

@@ -23,6 +23,7 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import  os
+import sys
 
 
 from tensorflow.keras.layers import Dense, Flatten, Conv2D,Lambda,LSTM,Dropout,BatchNormalization
@@ -32,6 +33,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
+sys.path.append(os.path.normpath(os.path.dirname(os.getcwd())))
 from mandarin_common_tf2 import *
 
 ##############################################################
@@ -47,7 +49,7 @@ os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 # The GPU id to use, usually either "0" or "1"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
-batch_size = 30
+batch_size = 40
 nb_classes = 10
 nb_epoch = 600
 data_augmentation = True
@@ -76,7 +78,7 @@ x=Dropout(dr) (x)
 
 targets = Dense(2, activation="softmax")(x)
 
-model = Model(inputs=inputs, outputs=targets, name="cifar10_model")
+model = Model(inputs=inputs, outputs=targets, name="pathfinder_model")
 
 
 model.compile(
@@ -90,7 +92,7 @@ print(model.summary())
 
 class Pathfinder32Generator(tf.keras.utils.Sequence):
     'Generates data for Keras'
-    def __init__(self, data_path="/pathfinder/dataset", batch_size=32, dim=( 32, 32, 1),
+    def __init__(self, data_path="data", batch_size=32, dim=( 32, 32, 1),
                  n_classes=2, shuffle=True , n_slice=None, split_mode="easy"):
         'Initialization'
         self.data_path = data_path
@@ -107,13 +109,17 @@ class Pathfinder32Generator(tf.keras.utils.Sequence):
         }
 
         """Read the input data out of the source files."""
-        file_path =  os.path.join(self.data_path ,self.split_mode_dict[split_mode], "metadata")+"/1.npy"
+        file_path =  os.path.normpath(os.path.join(os.getcwd(),self.data_path ,self.split_mode_dict[split_mode], "metadata")+"/1.npy")
+
         self.meta_examples = np.load(file_path)
         if self.n_slice != None:
             slice_str = self.n_slice.split(":")
             self.meta_examples = self.meta_examples[int(slice_str[0]):int(slice_str[1])]
+            i = 0
+            for x in self.meta_examples:
+                self.meta_examples[i][2] = i 
+                i = i+1
 
-        print(self.meta_examples.shape)
         self.indexes = np.arange(len(self.meta_examples))
         self.on_epoch_end()
 
@@ -127,9 +133,7 @@ class Pathfinder32Generator(tf.keras.utils.Sequence):
         # Generate indexes of the batch
         indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
 
-        # Find list of IDs
-        list_meta_examples_temp = [self.meta_examples[k][2] for k in indexes]
-
+        list_meta_examples_temp =  indexes
         # Generate data
         X, y = self.__data_generation(list_meta_examples_temp)
 
@@ -143,7 +147,7 @@ class Pathfinder32Generator(tf.keras.utils.Sequence):
 
     def __data_generation(self, list_meta_examples_temp):
         'Generates data containing batch_size samples' 
-        # Initialization
+        # Initialization     
         X = np.empty((self.batch_size, *self.dim))
         y = np.empty((self.batch_size), dtype=int)
 
@@ -160,13 +164,13 @@ class Pathfinder32Generator(tf.keras.utils.Sequence):
             y[idx] = np.array(current_data_image[3])
             idx = idx+1
 
+
         return X, tf.keras.utils.to_categorical(y, num_classes=self.n_classes)
 
-training_generator = Pathfinder32Generator()
-test_generator = Pathfinder32Generator()
+training_generator = Pathfinder32Generator(n_slice="0:8000",batch_size=batch_size)
+test_generator = Pathfinder32Generator(n_slice="8000:10000",batch_size=batch_size)
 
 model.fit_generator(training_generator,
-                                 steps_per_epoch=int(9000/batch_size),
-                                 epochs=30, 
+                                 steps_per_epoch=int(8000/batch_size),
+                                 epochs=500, 
                                  validation_data = test_generator)
-

@@ -29,7 +29,7 @@ from tensorflow.keras.layers import Dense, Flatten, Conv2D, Embedding, LSTM, Bat
 from tensorflow.keras import Model
 
 from mandarin_common_tf2 import *
-import input_pipeline
+from data import input_pipeline
 
 
 import sys
@@ -47,7 +47,7 @@ print("---------------------------------------------------------")
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # The GPU id to use, usually either "0" or "1"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
 ds_size = 147086  # CHANGE HERE CHANGE HERE CHANGE HERE CHANGE HERE CHANGE HERE

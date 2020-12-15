@@ -42,7 +42,7 @@ print("---------------------------------------------------------")
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # The GPU id to use, usually either "0" or "1"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
 (ds_train, ds_test), ds_info = tfds.load(
@@ -90,7 +90,7 @@ x = Dropout(dr)(x)
 
 x = Dense(2, activation="softmax")(x)
 
-model = Model(inputs=inputs, outputs=x, name="mnist_model")
+model = Model(inputs=inputs, outputs=x, name="imdb_model")
 
 
 model.compile(
