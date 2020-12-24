@@ -95,20 +95,22 @@ inputs1 = tf.keras.layers.Input(shape=(2*max_length), name="inputs1")
 inputs_a = Lambda(lambda dd: dd[:, :max_length])(inputs1)
 inputs_b = Lambda(lambda dd: dd[:, max_length:])(inputs1)
 
-
-my_encoder = Lambda(lambda dd: IGLOO1D_BLOCK(dd, nb_patches, nb_filters_conv1d, patch_size=patch_size,
-                                             nb_stacks=nb_stacks, DR=dr, l2_reg=l2_reg, transformer_style=True, pooling_size=pooling))
-myembedding = Embedding(
-    input_dim=257, output_dim=embedding_dim, trainable=True)
+myembedding = Embedding( input_dim=257, output_dim=embedding_dim, trainable=True)
 
 x_a = myembedding(inputs_a)
 x_b = myembedding(inputs_b)
 
-x_a = my_encoder(x_a)
-x_b = my_encoder(x_b)
+my_encoder_a = IGLOO1D_BLOCK(x_a, nb_patches, nb_filters_conv1d, patch_size=patch_size,
+                                             nb_stacks=nb_stacks, DR=dr, l2_reg=l2_reg, transformer_style=True, pooling_size=pooling)
+my_encoder_b = IGLOO1D_BLOCK(x_b, nb_patches, nb_filters_conv1d, patch_size=patch_size,
+                                             nb_stacks=nb_stacks, DR=dr, l2_reg=l2_reg, transformer_style=True, pooling_size=pooling)
+
+
+
+
 
 x = Lambda(lambda dd: tf.concat(
-    [dd[0], dd[1], dd[0]-dd[1], dd[0]*dd[1]], axis=-1))([x_a, x_b])
+    [dd[0], dd[1], dd[0]-dd[1], dd[0]*dd[1]], axis=-1))([my_encoder_a, my_encoder_b])
 
 
 x = Dense(128)(x)

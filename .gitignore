@@ -134,3 +134,6 @@ data/new_aan_pairs.train.tsv
 lra_listops/listops/basic_test.tsv
 lra_listops/listops/basic_train.tsv
 lra_listops/listops/basic_val.tsv
+pathfinder/data/curv_baseline
+pathfinder/data/curv_contour_length_9
+pathfinder/data/curv_contour_length_14

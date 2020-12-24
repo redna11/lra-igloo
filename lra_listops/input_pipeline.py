@@ -65,6 +65,7 @@ def get_datasets(n_devices,
   print("---- Building Vocab -------")
   vocab_set = set()
   tokenizer = tfds.features.text.Tokenizer()
+  #tokenizer = tfds.deprecated.text.Tokenizer()
 
   for i, data in enumerate(train_dataset):
     examples = data['Source']
@@ -73,11 +74,12 @@ def get_datasets(n_devices,
     vocab_set.update(examples)
     if i > 1000:
       break
+
   vocab_set = list(set(vocab_set))
 #  tf.logging.info('Finished processing vocab size={}'.format(len(vocab_set)))
 
   encoder = tfds.features.text.TokenTextEncoder(vocab_set)
-
+  #encoder = tfds.deprecated.text.TokenTextEncoder(vocab_set)
   def tf_encode(x):
     result = tf.py_function(lambda s: tf.constant(encoder.encode(s.numpy())), [
         x,
