@@ -6,8 +6,9 @@
 
 |               | ListOps   | Text-IMDB | Retrieval | Image-cifar10 | Path      | Avg    |
 --------------- | --------- | --------- | --------- | ------------- | --------- | ------ |
-Params          | 18.3M     | 3.6M      | 1.145k    |     	132k    | 310k      |        |
-ACC             | 39.23     | 82        | 75.5      |        47     | 67.50     | 62.25  |
+Text Accuracy   | 39        | 84.5      | 75.5      |        47     | 76.5      | 64.5   |
+Params baseline | 19.9M     | 3.5M      | 1.087k    |     	380k    | 446k      |        |
+Params IGLOO    | 18.3M     | 3.50M     | 1.145k    |     	132k    | 440k      |        |
 
 Those are the results one is expected to find using IGLOO on the [Long Range Arena](https://github.com/google-research/long-range-arena) suite of benchmarks.
 
