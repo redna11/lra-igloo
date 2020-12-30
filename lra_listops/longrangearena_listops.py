@@ -18,13 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
-
 import functools
 import itertools
 import os
 import sys
-
 import time
 from absl import app
 from absl import flags
@@ -56,7 +53,8 @@ os.environ["CUDA_VISIBLE_DEVICES"]="0"
 output_dir_train = 'listops/'
 
 
-bs=36
+
+bs=64
 cutoff = 2000
 embedding_dim = 512
 
@@ -80,24 +78,23 @@ vocab_size = encoder.vocab_size
 train_ds = train_ds.repeat()
 
 
-#############################################################################
-####
-#### DEFINING the network
-####
-#############################################################################
-
 nb_patches=2000
 nb_filters_conv1d = 512
-l2_reg = 0.02
-dr=0.5
-nb_stacks = 2
-
+l2_reg = 0.0002
+dr=0.3
+nb_stacks = 1
+incoming_proj = 0
+spatial_dropout = False
+blockstyle = "v1"
+transformer_style = True
+pooling_size=1
+patch_size = 4
 
 inputs = tf.keras.layers.Input(shape=(cutoff,))
 
 x = Embedding(input_dim=16,output_dim=embedding_dim,trainable=True)(inputs)
 
-x = IGLOO1D_BLOCK(x,nb_patches,nb_filters_conv1d,nb_stacks=nb_stacks,DR=dr,l2_reg=l2_reg,transformer_style=True)
+x = IGLOO1D_BLOCK(x,nb_patches,nb_filters_conv1d,patch_size=patch_size,nb_stacks=nb_stacks,DR=dr,l2_reg=l2_reg,transformer_style=transformer_style,spatial_dropout=spatial_dropout,blockstyle=blockstyle,pooling_size=pooling_size,incoming_proj=incoming_proj)
 
 targets = Dense(10, activation="softmax")(x)
 
